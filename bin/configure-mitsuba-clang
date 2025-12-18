@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -e
+
+CC=clang-17
+CXX=clang++-17
+
+cd $PROJECT_ROOT
+
+cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=on \
+	-DCMAKE_BUILD_TYPE=RelWithDebInfo \
+	-G Ninja -S mitsuba3/ -B \
+	mitsuba3/build-mitsuba-clang
+

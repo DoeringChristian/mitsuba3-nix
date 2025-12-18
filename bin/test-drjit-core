@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -e
+
+build-drjit
+
+cd $PROJECT_ROOT/mitsuba3/build-drjit-core/tests
+
+./test_$1 ${@:2}
+
