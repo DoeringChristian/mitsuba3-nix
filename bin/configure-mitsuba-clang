@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 set -e
 
-CC=clang-17
-CXX=clang++-17
-
 cd $PROJECT_ROOT
 
-cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=on \
-	-DCMAKE_BUILD_TYPE=RelWithDebInfo \
-	-G Ninja -S mitsuba3/ -B \
-	mitsuba3/build-mitsuba-clang
-
+cmake -GNinja -S mitsuba3/ -B mitsuba3/build-mitsuba-clang \
+    -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
+    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+    -DMI_DEFAULT_VARIANTS='scalar_rgb,llvm_ad_rgb' \
+    -DPython_ROOT_DIR=$Python_ROOT_DIR \
+    -DCMAKE_C_COMPILER=$(which clang) \
+    -DCMAKE_CXX_COMPILER=$(which clang++) \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5

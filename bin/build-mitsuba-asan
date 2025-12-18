@@ -7,4 +7,7 @@ cd $PROJECT_ROOT/mitsuba3/build-mitsuba-asan
 
 export ASAN_OPTIONS=protect_shadow_gap=0:replace_intrin=0:detect_leaks=0
 
+# Build drjit-python first to avoid race condition with stub generation
+ninja drjit-python
+# Then build everything else
 ninja

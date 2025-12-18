@@ -3,5 +3,16 @@ set -e
 
 cd $PROJECT_ROOT/mitsuba3/
 
-cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=on -DCMAKE_BUILD_TYPE=Debug -G Ninja -S ./ -B build-mitsuba
-cmake --build build-mitsuba
+cmake -GNinja -B build-mitsuba \
+    -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
+    -DCMAKE_BUILD_TYPE=Debug \
+    -DMI_DEFAULT_VARIANTS='scalar_rgb,llvm_ad_rgb' \
+    -DPython_ROOT_DIR=$Python_ROOT_DIR \
+    -DCMAKE_C_COMPILER=$(which clang) \
+    -DCMAKE_CXX_COMPILER=$(which clang++) \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+
+# Build drjit-python first to avoid race condition with stub generation
+ninja -C build-mitsuba drjit-python
+# Then build everything else
+ninja -C build-mitsuba

@@ -91,7 +91,8 @@
             echo "        -DMI_DEFAULT_VARIANTS='scalar_rgb,llvm_ad_rgb' \\"
             echo "        -DPython_ROOT_DIR=\$Python_ROOT_DIR \\"
             echo "        -DCMAKE_C_COMPILER=\$(which clang) \\"
-            echo "        -DCMAKE_CXX_COMPILER=\$(which clang++)"
+            echo "        -DCMAKE_CXX_COMPILER=\$(which clang++) \\"
+            echo "        -DCMAKE_POLICY_VERSION_MINIMUM=3.5"
             echo "  cmake --build build"
             echo ""
 
